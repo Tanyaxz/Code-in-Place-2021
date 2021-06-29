@@ -1,0 +1,84 @@
+
+import csv
+
+"""Median Age data of the world is obtained from
+https://ourworldindata.org"""
+
+
+def personal_data():
+    print("Hello! Are you ready to start <Age is just a Number!> Quiz?")
+    start=input("Press Y for us to start! ") 
+    #having an input to start the file
+    if start.upper()=="Y":
+        user_name=input("What is your first name? ")
+        user_country=input("Which country are you currently living in? \n(For example: United States, India, Canada, etc) ")
+        #creating a dictionary with country as key and median age as vaule
+        with open("Median.csv") as f: 
+            reader = csv.DictReader(f)
+            for line in reader:
+                country = line["Country"]
+                age = line["Median"]
+                if user_country.lower()==country:
+                    print("Hey " + user_name +"!")
+                    print("--------------------------------------------------------------")
+                    print("The Median Age for " + country + " in 2020 is " + age + "!")
+                    print("--------------------------------------------------------------")
+                else:
+                    pass
+    else:
+        print("Maybe next time!")
+        exit()
+
+def sort_game():
+    #this function start the quiz and prompts users with all the questions
+    user_sum=0
+    questions_list=[
+   "What is your most used App on the phone?\na.Facebook b.Spotify c.TikTok ",
+    "Do you worry about budget and retirement?\na.Yes! b.Sometimes c.No! ",
+    "How do you order takeout?\na.at store b.call in c.mobile app ",
+    "Do you have grocery delivered to your house?\na. No! b.Sometimes c.Yes! ",
+    "Do you worry about your health?\na.No! b.Sometimes c.Yes! ",
+    "Your favorite disney movie?\na.Sound of Music b.Finding Nemo c.Coco ",
+    "Do you feel young or old?\na.Older and wiser b.Neutral c.Young and Fearless " ,
+    ]
+    for question in questions_list:
+        answer=input(question)
+        if answer=="a":
+            user_sum+=0
+        elif answer=="b":
+            user_sum+=1
+        elif answer=="c":
+            user_sum+=2
+        else:
+            print("Error!")
+            exit()
+    return(user_sum)
+
+def main():
+    personal_data()
+    input("Press any button to continue on ")
+    print("Please enter a, b or c to the following questions.\n")
+    score=sort_game()
+    input("Results!")
+    if score<=3:
+         print("*You are a wise old soul at 60*")
+    elif score<=8:
+        print("*You are maturing toward becoming 35*")
+    else: 
+        print("*You are forever young at 21!*")
+
+    print("----------------------------------------")
+    print("Founder of KFC started at 65 years old!\nDon't be afraid to start something new!")
+    print("----------------------------------------")
+    again=input("Do you want to play again? press Y or N ")
+    if again.upper()=="Y":
+        main()#this will run the game again
+    elif again.upper()=="N":
+        print("Thanks for playing!")
+    else:
+        print("Error!")
+        exit()
+
+if __name__ == '__main__':
+    main()
+
